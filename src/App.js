@@ -1,5 +1,6 @@
 import FacebookLogin from "react-facebook-login";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -12,6 +13,22 @@ function App() {
       },
     },
   });
+  const [items, setItems] = useState({});
+  useEffect(() => {
+    axios
+      .get(
+        `/https://graph.facebook.com/${data.id}
+        ?fields=birthday,email,hometown
+      &access_token={${data.accessToken}}`
+      )
+      .then((response) => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch((error) => {
+        alert("Ocorreu um erro ao buscar os items");
+      });
+  }, [logged]);
   return (
     <div>
       {!logged && (
@@ -25,6 +42,7 @@ function App() {
 
             setLogged(true);
             setData(res);
+            axios.get();
           }}
         />
       )}
