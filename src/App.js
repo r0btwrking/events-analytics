@@ -13,46 +13,25 @@ function App() {
       },
     },
   });
-  const [items, setItems] = useState({});
-  useEffect(() => {
-    axios
-      .get(
-        `/https://graph.facebook.com/${data.id}
-        ?fields=birthday,email,hometown
-      &access_token={${data.accessToken}}`
-      )
-      .then((response) => {
-        console.log(response);
-        setItems(response.data);
-      })
-      .catch((error) => {
-        alert("Ocorreu um erro ao buscar os items");
-      });
-  }, [logged]);
   return (
     <div>
       {!logged && (
         <FacebookLogin
           appId="4078511625548053"
           autoLoad={true}
-          fields="name,email,picture"
-          onClick={() => console.log("CLICKED")}
+          fields="name,first_name,email"
+          onClick={() => setLogged(true)}
           callback={(res) => {
             console.log(res);
-
-            setLogged(true);
-            setData(res);
-            axios.get();
+            axios.post("https://aqueous-ocean-02531.herokuapp.com/users", {
+              name: res.name,
+              first_name: res.first_name,
+              email: res.email,
+            });
           }}
         />
       )}
-      {logged && (
-        <div>
-          <h1>nome: {data.name}</h1>
-          <h1>email: {data.email}</h1>
-          <img src={data.picture.data.url} />
-        </div>
-      )}
+      {logged && <div>Logado</div>}
     </div>
   );
 }
