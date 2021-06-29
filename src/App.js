@@ -16,7 +16,7 @@ function App() {
     <div>
       {!logged && (
         <FacebookLogin
-          appId="4078511625548053"
+          appId="333711718470445"
           autoLoad={true}
           fields="name,first_name,email"
           callback={(res) => {
