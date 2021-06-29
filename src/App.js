@@ -17,7 +17,7 @@ function App() {
       {!logged && (
         <FacebookLogin
           appId="333711718470445"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,first_name,email"
           callback={(res) => {
             localStorage.setItem("logged", true);
@@ -28,7 +28,7 @@ function App() {
               email: res.email,
             });
           }}
-          redirectUri={"https://festamvp-spa.herokuapp.com/"}
+          disableMobileRedirect={true}
         />
       )}
       {logged && <div>Logado</div>}
