@@ -27,7 +27,6 @@ function App() {
               first_name: res.first_name,
               email: res.email,
             });
-            setLogged(true);
           }}
           redirectUri={"https://festamvp-spa.herokuapp.com/"}
         />
